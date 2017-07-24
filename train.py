@@ -5,13 +5,14 @@ import glob
 import sys
 
 
-TESSERACT_DIR='/storage/projects/alpr/libraries/tesseract-ocr'
+TESSERACT_DIR='/usr/local/bin'
 
-os.environ["TESSDATA_PREFIX"] = TESSERACT_DIR
+os.environ["TESSDATA_PREFIX"] ='/usr/local/share'
 #os.system("export TESSDATA_PREFIX=" + TESSERACT_DIR)
 
 TESSERACT_BIN=TESSERACT_DIR + '/tesseract'
-TESSERACT_TRAINDIR= TESSERACT_DIR + '/training'
+TESSERACT_TRAINDIR= '/home/duclinh/tesseract/training'
+
 
 
 country = raw_input("Two-Letter Country Code to Train: ").lower()
@@ -37,7 +38,7 @@ for box_file in box_files:
     tif_file = input_dir + '/' + file_without_ext + ".tif"
 
     train_cmd = "%s -l eng %s %s nobatch box.train.stderr" % (TESSERACT_BIN, tif_file, file_without_ext)
-    print "Executing: " + train_cmd 
+    print "Executing: " + train_cmd
     os.system(train_cmd)
     os.system("mv ./" + file_without_ext + ".tr ./tmp/" + file_without_ext + ".tr")
     os.system("mv ./" + file_without_ext + ".txt ./tmp/" + file_without_ext + ".txt")
